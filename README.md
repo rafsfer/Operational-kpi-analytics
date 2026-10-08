@@ -139,7 +139,13 @@ python -c "import sqlite3; c=sqlite3.connect('database/operational_kpis.db'); pr
 
 O [guia do dashboard](powerbi/dashboard.md) explica a página **Visão Geral da Operação**, seis cartões, nove gráficos obrigatórios, filtros, modelo e conferência. As [medidas DAX](powerbi/medidas.dax) e o [tema JSON](powerbi/tema.json) podem ser utilizados no Power BI Desktop.
 
-A entrega inclui **documentação completa e dados preparados**, conforme o escopo solicitado. Um arquivo `.pbix` não foi criado nem validado no Power BI Desktop. A validação executada cobre os dados e as implementações Python/SQL; a validação visual e DAX deve seguir o checklist do guia no Desktop.
+O dashboard está disponível em [operational_kpis.pbix](powerbi/operational_kpis.pbix), com dados carregados, tema Nexa e as páginas **Visão Geral da Operação** e **Diagnóstico**. O [projeto PBIP](powerbi/operational_kpis.pbip) mantém o modelo e a definição dos visuais em arquivos editáveis. Consulte [como abrir o dashboard](powerbi/ABRIR_DASHBOARD.md).
+
+![Dashboard Power BI — Visão Geral da Operação da Nexa Serviços](powerbi/dashboard.png)
+
+*Captura real do relatório no Power BI Desktop, com dados sintéticos de janeiro a junho de 2026.*
+
+Os seis KPIs gerais, o backlog histórico dos seis meses e um cenário com filtros combinados de mês, equipe e canal foram conferidos em DAX contra os resultados do projeto. Veja o [registro da validação no Power BI](reports/validacao_powerbi.md).
 
 ## Principais insights
 
@@ -208,7 +214,7 @@ A execução sobrescreve somente os artefatos gerados deste projeto, o banco loc
 - Modelar SLA em horas úteis quando essa for a regra contratual.
 - Separar coortes com janela de observação equivalente e incluir estoque inicial.
 - Medir representatividade das avaliações de satisfação.
-- Construir e publicar o `.pbix`, com conferência das medidas e acessibilidade.
+- Publicar o relatório e ampliar a revisão de acessibilidade e dos cenários de filtros.
 
 ## Como explicar o projeto em uma entrevista
 

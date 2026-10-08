@@ -1,0 +1,311 @@
+table Atendimentos
+	lineageTag: de226012-849a-4151-adb3-18d1feb27370
+
+	measure 'Total de atendimentos' = COUNTROWS(Atendimentos)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 2a21689c-f7eb-4107-b29a-43696b4c3192
+
+	measure Resolvidos = CALCULATE([Total de atendimentos], Atendimentos[resolvido] = 1)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 7ebb74aa-b8f6-4a2a-8316-9ed1d3b4ac93
+
+	measure 'Dentro do SLA' = SUM(Atendimentos[dentro_sla])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: a2a35a23-b195-4058-9535-7488bc20cb39
+
+	measure SLA = DIVIDE([Dentro do SLA], [Total de atendimentos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 3d8680a5-56e7-443e-b535-357097b6f1af
+
+	measure 'SLA dos resolvidos' = DIVIDE([Dentro do SLA], [Resolvidos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: dc1bcca8-a110-4df2-b23f-c1269e76e94b
+
+	measure FCR = DIVIDE(SUM(Atendimentos[resolvido_primeiro_contato]), [Resolvidos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: b549b829-0e86-4ad2-a1b7-ecf84b1c924d
+
+	measure 'Cobertura FCR' = DIVIDE(COUNT(Atendimentos[resolvido_primeiro_contato]), [Resolvidos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: f9d99ac4-8eae-485f-a957-6ffc43bb5834
+
+	measure 'Tempo médio de resolução' = CALCULATE(AVERAGE(Atendimentos[tempo_resolucao_horas]), Atendimentos[resolvido] = 1)
+		formatString: 0.00
+		displayFolder: Indicadores
+		lineageTag: 8b08058f-587b-4761-84f0-c7a58370ff73
+
+	measure Backlog = CALCULATE([Total de atendimentos], Atendimentos[resolvido] = 0)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 51369402-ce25-4932-9a57-e726075c35a0
+
+	measure 'Pendentes vencidos' = SUM(Atendimentos[pendente_vencido])
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 0b1a3b06-eefe-4596-96ce-699e3c51c0e5
+
+	measure CSAT = CALCULATE(AVERAGE(Atendimentos[nota_satisfacao]), Atendimentos[resolvido] = 1)
+		formatString: 0.00
+		displayFolder: Indicadores
+		lineageTag: 5a74cef5-98bd-4d68-b325-112b35943b9b
+
+	measure 'Respostas CSAT' = CALCULATE(COUNT(Atendimentos[nota_satisfacao]), Atendimentos[resolvido] = 1)
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 85fce682-cc37-4936-879b-c70dec37e620
+
+	measure 'Cobertura CSAT' = DIVIDE([Respostas CSAT], [Resolvidos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: 41af0900-261a-46da-a91d-e4837cc92b1b
+
+	measure Produtividade = [Resolvidos]
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: fa2200b3-fde4-46a4-8a2a-77e4325014ce
+
+	measure 'Taxa de resolução' = DIVIDE([Resolvidos], [Total de atendimentos])
+		formatString: 0.00%
+		displayFolder: Indicadores
+		lineageTag: aaf7a2e7-718a-4738-8721-535f7943c5dc
+
+	measure 'Backlog histórico' =
+			VAR Limite = MAX(Calendario[data]) + 1
+			RETURN
+			    CALCULATE(
+			        COUNTROWS(Atendimentos),
+			        REMOVEFILTERS(Calendario),
+			        REMOVEFILTERS(Atendimentos[Data abertura]),
+			        REMOVEFILTERS(Atendimentos[mes_abertura]),
+			        FILTER(
+			            ALL(Atendimentos[data_abertura], Atendimentos[data_fechamento]),
+			            Atendimentos[data_abertura] < Limite
+			                && (ISBLANK(Atendimentos[data_fechamento])
+			                    || Atendimentos[data_fechamento] >= Limite)
+			        )
+			    )
+		formatString: #,0
+		displayFolder: Indicadores
+		lineageTag: 20e3c7ee-fdbc-422b-a811-29078b1a6da2
+
+	column id_atendimento
+		dataType: int64
+		lineageTag: 9ca1265e-2216-4334-a280-5525ac4f5517
+		summarizeBy: sum
+		sourceColumn: id_atendimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_cliente
+		dataType: int64
+		lineageTag: acb4ae19-af81-484d-85e9-9d2d05701706
+		summarizeBy: sum
+		sourceColumn: id_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_abertura
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm:ss
+		lineageTag: 454686aa-6927-4ab6-a574-616eef068146
+		summarizeBy: none
+		sourceColumn: data_abertura
+
+		variation Variation
+			isDefault
+			relationship: c83313ef-f66b-4957-ba4c-8008aa0b1735
+			defaultHierarchy: LocalDateTable_1462c8b2-b71f-49d5-8dcd-8e0c230270b4.'Hierarquia de datas'
+
+	column data_fechamento
+		dataType: dateTime
+		formatString: yyyy-MM-dd HH:mm:ss
+		lineageTag: 291125fb-a525-4542-81dc-fd70a9780858
+		summarizeBy: none
+		sourceColumn: data_fechamento
+
+		variation Variation
+			isDefault
+			relationship: d0dd4dc8-9409-4b68-b9b3-8db604f1f9a9
+			defaultHierarchy: LocalDateTable_63e50304-e2fb-4e17-9b4b-8557254f50b5.'Hierarquia de datas'
+
+	column canal
+		dataType: string
+		lineageTag: 8f3795f7-a70b-4eb3-a428-c201ec87479b
+		summarizeBy: none
+		sourceColumn: canal
+
+	column categoria
+		dataType: string
+		lineageTag: eba5f35e-2696-40a5-8d3b-abcd93278639
+		summarizeBy: none
+		sourceColumn: categoria
+
+	column subcategoria
+		dataType: string
+		lineageTag: 8b086509-af4b-400c-81e9-a3837dbe29f8
+		summarizeBy: none
+		sourceColumn: subcategoria
+
+	column prioridade
+		dataType: string
+		lineageTag: 251218e6-28ac-461e-b94a-9f303775d05c
+		summarizeBy: none
+		sourceColumn: prioridade
+		sortByColumn: 'Ordem prioridade'
+
+	column equipe
+		dataType: string
+		lineageTag: f135556b-973d-4c09-aef6-20b646c4e904
+		summarizeBy: none
+		sourceColumn: equipe
+
+	column atendente
+		dataType: string
+		lineageTag: 90977618-b3d6-41b5-a6cf-06ee92c47fba
+		summarizeBy: none
+		sourceColumn: atendente
+
+	column status
+		dataType: string
+		lineageTag: 07f4ebf8-b28e-4e91-a407-1765448e960e
+		summarizeBy: none
+		sourceColumn: status
+
+	column tempo_primeira_resposta_min
+		dataType: double
+		lineageTag: 292bc3d0-f420-48ea-9bbf-ae3f47eae330
+		summarizeBy: sum
+		sourceColumn: tempo_primeira_resposta_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column tempo_resolucao_horas
+		dataType: double
+		lineageTag: 3eef9e42-c3ab-40a2-bdad-d642835bbbf1
+		summarizeBy: sum
+		sourceColumn: tempo_resolucao_horas
+
+		annotation SummarizationSetBy = Automatic
+
+	column dentro_sla
+		dataType: int64
+		lineageTag: 5d173a65-a1d8-4439-b720-5786de29a209
+		summarizeBy: sum
+		sourceColumn: dentro_sla
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolvido_primeiro_contato
+		dataType: int64
+		lineageTag: f7a146c8-9819-4599-98b1-2c8fcf10f95d
+		summarizeBy: sum
+		sourceColumn: resolvido_primeiro_contato
+
+		annotation SummarizationSetBy = Automatic
+
+	column nota_satisfacao
+		dataType: double
+		lineageTag: 0e1804ca-7967-4036-9837-5cac1f653c58
+		summarizeBy: sum
+		sourceColumn: nota_satisfacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantidade_interacoes
+		dataType: int64
+		lineageTag: 9f21899c-4e24-4b03-9800-10f150b59311
+		summarizeBy: sum
+		sourceColumn: quantidade_interacoes
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolvido
+		dataType: int64
+		lineageTag: bf09ef43-d911-418b-8221-417b290abf4a
+		summarizeBy: sum
+		sourceColumn: resolvido
+
+		annotation SummarizationSetBy = Automatic
+
+	column sla_horas
+		dataType: int64
+		lineageTag: efad19dd-e826-428b-8ab9-0d9431435b03
+		summarizeBy: sum
+		sourceColumn: sla_horas
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_abertura
+		dataType: string
+		lineageTag: 01aab5b3-48a6-4334-8cfe-828d1de24e83
+		summarizeBy: none
+		sourceColumn: mes_abertura
+
+	column mes_fechamento
+		dataType: string
+		lineageTag: 66394c76-f90d-457c-977b-036dba99ac06
+		summarizeBy: none
+		sourceColumn: mes_fechamento
+
+	column idade_horas
+		dataType: double
+		lineageTag: 81b1e3d1-a595-4670-a542-b925697bc29c
+		summarizeBy: sum
+		sourceColumn: idade_horas
+
+		annotation SummarizationSetBy = Automatic
+
+	column pendente_vencido
+		dataType: int64
+		lineageTag: 3ed947ea-49de-4bd8-9b24-9e171d797cdc
+		summarizeBy: sum
+		sourceColumn: pendente_vencido
+
+		annotation SummarizationSetBy = Automatic
+
+	column resposta_extrema
+		dataType: int64
+		lineageTag: 9845b9b4-c45e-4f67-9acc-5599961fed0b
+		summarizeBy: sum
+		sourceColumn: resposta_extrema
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data abertura'
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		lineageTag: 22be3643-bcb9-4c05-af0a-9b66ddee90df
+		summarizeBy: none
+		sourceColumn: Data abertura
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Ordem prioridade'
+		dataType: int64
+		isHidden
+		lineageTag: 83763de6-490d-44a1-b753-2869ee2c9c8d
+		summarizeBy: sum
+		sourceColumn: Ordem prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Atendimentos = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "atendimentos.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalhos, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalhos)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"id_atendimento", Int64.Type}, {"id_cliente", Int64.Type}, {"data_abertura", type datetime}, {"data_fechamento", type datetime}, {"canal", type text}, {"categoria", type text}, {"subcategoria", type text}, {"prioridade", type text}, {"equipe", type text}, {"atendente", type text}, {"status", type text}, {"tempo_primeira_resposta_min", type number}, {"tempo_resolucao_horas", type number}, {"dentro_sla", Int64.Type}, {"resolvido_primeiro_contato", Int64.Type}, {"nota_satisfacao", type number}, {"quantidade_interacoes", Int64.Type}, {"resolvido", Int64.Type}, {"sla_horas", Int64.Type}, {"mes_abertura", type text}, {"mes_fechamento", type text}, {"idade_horas", type number}, {"pendente_vencido", Int64.Type}, {"resposta_extrema", Int64.Type}}, "en-US"),
+				    Abertura = Table.AddColumn(Tipos, "Data abertura", each Date.From([data_abertura]), type date),
+				    Prioridade = Table.AddColumn(Abertura, "Ordem prioridade", each if [prioridade] = "Crítica" then 1 else if [prioridade] = "Alta" then 2 else if [prioridade] = "Média" then 3 else 4, Int64.Type)
+				in
+				    Prioridade
+

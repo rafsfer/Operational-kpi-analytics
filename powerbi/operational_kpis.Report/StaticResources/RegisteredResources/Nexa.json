@@ -1,0 +1,14 @@
+{
+  "name": "Nexa — Operação",
+  "dataColors": [
+    "#2563EB",
+    "#0D9488",
+    "#D97706",
+    "#7C3AED",
+    "#475569",
+    "#DC2626"
+  ],
+  "background": "#F8FAFC",
+  "foreground": "#0F172A",
+  "tableAccent": "#2563EB"
+}

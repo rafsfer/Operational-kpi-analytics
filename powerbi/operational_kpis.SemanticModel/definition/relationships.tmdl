@@ -1,0 +1,14 @@
+relationship 40f2fa40-23ba-4b2b-b40b-d85cdd1bd916
+	fromColumn: Atendimentos.'Data abertura'
+	toColumn: Calendario.data
+
+relationship c83313ef-f66b-4957-ba4c-8008aa0b1735
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atendimentos.data_abertura
+	toColumn: LocalDateTable_1462c8b2-b71f-49d5-8dcd-8e0c230270b4.Date
+
+relationship d0dd4dc8-9409-4b68-b9b3-8db604f1f9a9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atendimentos.data_fechamento
+	toColumn: LocalDateTable_63e50304-e2fb-4e17-9b4b-8557254f50b5.Date
+

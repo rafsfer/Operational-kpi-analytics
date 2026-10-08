@@ -1,0 +1,31 @@
+table Calendario
+	lineageTag: 8b0a0a40-b02a-4286-9052-8a0ef00fd07a
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: yyyy-MM-dd
+		lineageTag: 37329a70-7198-4fe3-b48e-465b72c1eb2a
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column mes
+		dataType: string
+		lineageTag: 8931f1da-2c2f-42a7-b8d1-3927e689c2a9
+		summarizeBy: none
+		sourceColumn: mes
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(PastaDados & "calendario.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    Vazios = Table.ReplaceValue(Cabecalhos, "", null, Replacer.ReplaceValue, Table.ColumnNames(Cabecalhos)),
+				    Tipos = Table.TransformColumnTypes(Vazios, {{"data", type date}, {"mes", type text}}, "en-US")
+				in
+				    Tipos
+

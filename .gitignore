@@ -13,3 +13,7 @@ __pycache__/
 .coverage
 htmlcov/
 *.log
+
+# Cache local do Power BI
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

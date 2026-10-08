@@ -1,0 +1,5 @@
+expression PastaDados = "C:/Users/feale/Desktop/OperacionalKPI/operational-kpi-analytics/data/processed/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f83a3b6c-b279-4ddb-a628-89236ce7ea29
+
+	annotation PBI_ResultType = Text
+

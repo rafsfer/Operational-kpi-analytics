@@ -1,0 +1,22 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_DataSourceVersion = V3
+
+annotation PBI_QueryOrder = ["Atendimentos","Calendario","PastaDados"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Atendimentos
+ref table Calendario
+ref table DateTableTemplate_c18c45c8-0d40-4858-86b1-bac0887228fc
+ref table LocalDateTable_1462c8b2-b71f-49d5-8dcd-8e0c230270b4
+ref table LocalDateTable_63e50304-e2fb-4e17-9b4b-8557254f50b5
+

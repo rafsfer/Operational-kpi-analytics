@@ -2,7 +2,7 @@
 
 ## Objetivo e escopo
 
-Construa uma página principal **Visão Geral da Operação**, destinada à gestão da Nexa Serviços. Todos os dados são sintéticos. O relatório observa janeiro a junho de 2026 até o corte exclusivo de 01/07/2026. Este guia acompanha dados, DAX e tema; o arquivo PBIX deverá ser montado no Power BI Desktop.
+Construa uma página principal **Visão Geral da Operação**, destinada à gestão da Nexa Serviços. Todos os dados são sintéticos. O relatório observa janeiro a junho de 2026 até o corte exclusivo de 01/07/2026. Este guia acompanha dados, DAX e tema; o projeto nativo já está disponível em [operational_kpis.pbip](operational_kpis.pbip). Consulte [ABRIR_DASHBOARD.md](ABRIR_DASHBOARD.md) para carregar os dados e conferir o relatório no Desktop. As etapas manuais abaixo também servem como referência para revisar o modelo.
 
 ## Importar os dados
 
@@ -82,7 +82,7 @@ Use rótulos e títulos claros; não comunique prazo somente com cor. Verde pode
 9. Teste um grupo sem resolvidos: medidas de média e razão sem população elegível devem ficar em branco. Contagens podem aparecer em branco em células sem linhas; para mostrar zero, use COALESCE apenas nas medidas de contagem.
 10. Salve como `powerbi/operational_kpis.pbix`, revise o layout e exporte uma captura real do Desktop para o portfólio.
 
-**Estado desta entrega:** CSVs e cálculos Python/SQL foram preparados para conferência. As medidas DAX e o tema precisam ser aplicados e validados no Power BI Desktop; não foi declarada uma validação visual que não ocorreu.
+**Estado desta entrega:** dashboard salvo em [operational_kpis.pbix](operational_kpis.pbix), com dados carregados e tema Nexa. Os seis KPIs gerais, o backlog histórico de janeiro a junho e um cenário combinado de mês/equipe/canal foram conferidos em DAX contra os dados do projeto. As duas páginas foram renderizadas no Desktop; a captura real da página principal está em [dashboard.png](dashboard.png). Consulte [o registro de validação](../reports/validacao_powerbi.md).
 
 ## Referências oficiais
 
