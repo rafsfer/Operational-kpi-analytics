@@ -1,0 +1,51 @@
+// Crie cada medida separadamente na tabela Atendimentos.
+// Razões retornam frações; aplique formato percentual com duas casas.
+Total de atendimentos = COUNTROWS(Atendimentos)
+
+Resolvidos = CALCULATE([Total de atendimentos], Atendimentos[resolvido] = 1)
+
+Dentro do SLA = SUM(Atendimentos[dentro_sla])
+
+SLA = DIVIDE([Dentro do SLA], [Total de atendimentos])
+
+SLA dos resolvidos = DIVIDE([Dentro do SLA], [Resolvidos])
+
+FCR = DIVIDE(SUM(Atendimentos[resolvido_primeiro_contato]), [Resolvidos])
+
+Cobertura FCR = DIVIDE(COUNT(Atendimentos[resolvido_primeiro_contato]), [Resolvidos])
+
+Tempo médio de resolução =
+CALCULATE(AVERAGE(Atendimentos[tempo_resolucao_horas]), Atendimentos[resolvido] = 1)
+
+// Pendências da coorte selecionada, observadas na data de corte.
+Backlog = CALCULATE([Total de atendimentos], Atendimentos[resolvido] = 0)
+
+Pendentes vencidos = SUM(Atendimentos[pendente_vencido])
+
+CSAT = CALCULATE(AVERAGE(Atendimentos[nota_satisfacao]), Atendimentos[resolvido] = 1)
+
+Respostas CSAT = CALCULATE(COUNT(Atendimentos[nota_satisfacao]), Atendimentos[resolvido] = 1)
+
+Cobertura CSAT = DIVIDE([Respostas CSAT], [Resolvidos])
+
+Produtividade = [Resolvidos]
+
+Taxa de resolução = DIVIDE([Resolvidos], [Total de atendimentos])
+
+// Esta medida remove apenas os filtros de tempo; preserva equipe, canal, categoria e prioridade.
+// Use Calendario[mes] no eixo, sem filtro de status ou de mês diretamente na fato.
+Backlog histórico =
+VAR Limite = MAX(Calendario[data]) + 1
+RETURN
+    CALCULATE(
+        COUNTROWS(Atendimentos),
+        REMOVEFILTERS(Calendario),
+        REMOVEFILTERS(Atendimentos[Data abertura]),
+        REMOVEFILTERS(Atendimentos[mes_abertura]),
+        FILTER(
+            ALL(Atendimentos[data_abertura], Atendimentos[data_fechamento]),
+            Atendimentos[data_abertura] < Limite
+                && (ISBLANK(Atendimentos[data_fechamento])
+                    || Atendimentos[data_fechamento] >= Limite)
+        )
+    )

@@ -1,0 +1,22 @@
+test_backlog_inclui_ticket_fechado_no_mes_seguinte (test_cleaning.TesteTratamento.test_backlog_inclui_ticket_fechado_no_mes_seguinte) ... ok
+test_datas_invertidas_ficam_em_quarentena (test_cleaning.TesteTratamento.test_datas_invertidas_ficam_em_quarentena) ... ok
+test_extremo_e_canal_ausente_sao_preservados (test_cleaning.TesteTratamento.test_extremo_e_canal_ausente_sao_preservados) ... ok
+test_id_conflitante_nao_escolhe_registro_arbitrario (test_cleaning.TesteTratamento.test_id_conflitante_nao_escolhe_registro_arbitrario) ... ok
+test_metricas_invalidas_viram_nulos_sem_perder_ticket (test_cleaning.TesteTratamento.test_metricas_invalidas_viram_nulos_sem_perder_ticket) ... ok
+test_recalcula_sla_no_limite_e_remove_copia (test_cleaning.TesteTratamento.test_recalcula_sla_no_limite_e_remove_copia) ... ok
+test_agrupamento_conserva_volume (test_kpis.TesteKPIs.test_agrupamento_conserva_volume) ... ok
+test_apenas_pendentes (test_kpis.TesteKPIs.test_apenas_pendentes) ... ok
+test_backlog (test_kpis.TesteKPIs.test_backlog) ... ok
+test_csat_exclui_ausentes (test_kpis.TesteKPIs.test_csat_exclui_ausentes) ... ok
+test_csat_ignora_nota_de_pendente (test_kpis.TesteKPIs.test_csat_ignora_nota_de_pendente) ... ok
+test_fcr_ausente_tem_cobertura_explicita (test_kpis.TesteKPIs.test_fcr_ausente_tem_cobertura_explicita) ... ok
+test_fcr_usa_apenas_resolvidos (test_kpis.TesteKPIs.test_fcr_usa_apenas_resolvidos) ... ok
+test_populacao_vazia (test_kpis.TesteKPIs.test_populacao_vazia) ... ok
+test_sla_usa_total_inclusive_pendentes (test_kpis.TesteKPIs.test_sla_usa_total_inclusive_pendentes) ... ok
+test_taxa_resolucao (test_kpis.TesteKPIs.test_taxa_resolucao) ... ok
+test_tempo_medio (test_kpis.TesteKPIs.test_tempo_medio) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.354s
+
+OK

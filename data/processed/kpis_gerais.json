@@ -1,0 +1,15 @@
+{
+  "total_atendimentos": 19922,
+  "resolvidos": 18703,
+  "tempo_medio_resolucao_horas": 38.90098382909456,
+  "sla_percentual": 65.39504065856842,
+  "sla_resolvidos_percentual": 69.65727423408009,
+  "fcr_percentual": 35.69480831952093,
+  "fcr_cobertura_percentual": 99.92514569855103,
+  "backlog": 1219,
+  "csat_media": 4.140701869465398,
+  "respostas_csat": 12196,
+  "csat_cobertura_percentual": 65.20879003368444,
+  "produtividade_resolvidos": 18703,
+  "taxa_resolucao_percentual": 93.88113643208513
+}
