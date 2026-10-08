@@ -5,7 +5,7 @@ Execução verificada em 08/10/2026, com Python 3.11.9, Pandas 2.3.3 e NumPy 2.4
 ## Evidências
 
 - 17 testes aprovados; saída completa em `testes.txt`.
-- Execução de `main.py` concluída, inclusive as 14 consultas SQL nomeadas.
+- Execução de `main.py` concluída, inclusive as 12 consultas SQL nomeadas.
 - KPIs gerais e todos os KPIs das seis dimensões conferidos entre Python e SQL.
 - Estoque de cada mês conferido entre Python e SQL e reconciliado com entradas e saídas.
 - Banco SQLite: `PRAGMA integrity_check` retorna `ok`.
