@@ -207,27 +207,3 @@ Para testar outra simulação:
 ```
 
 A execução sobrescreve somente os artefatos gerados deste projeto, o banco local e a seção automática de insights. O limite aceito é de 10 mil a 30 mil tickets. `requirements.txt` descreve as faixas das dependências; `requirements-lock.txt` registra as versões usadas na validação. Para recuperar o cenário apresentado, execute com os padrões (20.000 e 42).
-
-## Possíveis melhorias
-
-- Incorporar histórico de reabertura, transferência de equipe e horários trabalhados.
-- Modelar SLA em horas úteis quando essa for a regra contratual.
-- Separar coortes com janela de observação equivalente e incluir estoque inicial.
-- Medir representatividade das avaliações de satisfação.
-- Publicar o relatório e ampliar a revisão de acessibilidade e dos cenários de filtros.
-
-## Como explicar o projeto em uma entrevista
-
-**Qual problema você resolveu?** Organizei uma base sintética de atendimento para responder perguntas de gestão sobre demanda, prazo, estoque e satisfação. O exercício mostra como transformar registros em indicadores com regras claras.
-
-**Por que escolheu esses KPIs?** Volume descreve demanda; resolução e produtividade mostram produção; tempo e SLA acompanham prazo; backlog mostra trabalho acumulado; FCR e CSAT ajudam a avaliar a experiência do cliente.
-
-**Como calculou o SLA?** Recalculei horas entre abertura e fechamento e comparei com o prazo da prioridade. O indicador principal divide resolvidos no prazo por todos os tickets. Apresentei também a versão entre resolvidos para esclarecer o efeito das pendências.
-
-**O que é FCR?** É a resolução no primeiro contato. Nesta base, uso um ticket resolvido com uma interação como aproximação. Em uma operação real, verificaria reaberturas e contatos posteriores.
-
-**Como garantiria que os indicadores estão corretos?** Usaria regras de elegibilidade explícitas, auditoria da limpeza, testes com resultados conhecidos e reconciliação entre Python e SQL. Depois conferiria os cartões do Power BI com as mesmas populações e filtros.
-
-**Como o Power BI consome os dados?** Importa os CSVs tratados e o calendário. O relacionamento usa a data de abertura sem horário. As medidas respeitam os filtros de período, equipe, canal, categoria e prioridade. O backlog histórico usa datas para reconstruir o estoque.
-
-**Que decisão poderia ser tomada?** Investigar a fila com maior estoque vencido, comparar demanda e disponibilidade e propor melhorias na categoria mais demorada. Não atribuiria culpa à equipe apenas por um ranking: tamanho, complexidade e tempo de observação também afetam os resultados.
