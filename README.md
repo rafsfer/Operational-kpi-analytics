@@ -89,7 +89,7 @@ Funções simples separam geração, ingestão, limpeza, indicadores, persistên
 - **SQLite e SQL:** banco local sem servidor e consultas analíticas legíveis.
 - **unittest:** testes sem dependências adicionais.
 - **Power BI e DAX:** documentação de modelo, medidas, filtros e visuais.
-- **Git:** histórico de etapas reais, com mensagens em português.
+- **Git:** histórico de etapas reais
 
 **PySpark não foi utilizado:** 20 mil tickets cabem em memória e Pandas atende ao problema com menos configuração. PySpark seria uma possibilidade para volumes que justificassem processamento distribuído; acrescentá-lo aqui não contribuiria para a análise.
 
